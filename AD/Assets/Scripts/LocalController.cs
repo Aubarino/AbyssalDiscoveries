@@ -6,11 +6,11 @@ using UnityEngine;
 public class LocalController : MonoBehaviour
 {
     float bobOffset; //naturally approaches 0. use for impacts and shit
-    public float bobOffsetTarget; //change this on impacts
-    public float bobSpeed;
-    public float inAirBobSpeed;
-    public float bobIntensity;
-    public float lookSensitivity;
+    public float bobOffsetTarget = 0; //change this on impacts
+    public float bobSpeed = 3.8f;
+    public float inAirBobSpeed = 0.4f; 
+    public float bobIntensity = 0.02f;
+    public float lookSensitivity = 300f;
     public BodyScript currentBody;
     public List<BodyScript> switchableBodies = new List<BodyScript>();
     public int cbody = 0;
@@ -64,9 +64,9 @@ public class LocalController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        print(Input.GetAxisRaw("Vertical"));
-        currentBody.moveVector = Vector3.forward * Input.GetAxisRaw("Vertical") + Vector3.right * Input.GetAxisRaw("Horizontal");
-        transform.position = currentBody.transform.TransformPoint(currentBody.desiredCameraPosition + Vector3.up * Mathf.Sin(bobTime) * bobIntensity + Vector3.up * bobOffset);
+        //print(Input.GetAxisRaw("Vertical"));
+        currentBody.moveVector = ((Vector3.forward * Input.GetAxisRaw("Vertical")) + (Vector3.right * (Input.GetAxisRaw("Horizontal") * 0.5f)));
+        transform.position = currentBody.transform.TransformPoint(currentBody.desiredCameraPosition + ((Vector3.up * Mathf.Sin(bobTime)) * bobIntensity) + (Vector3.up * bobOffset));
     }
     void CharacterJumped() //called when the character jumps
     {

@@ -79,8 +79,8 @@ public class BodyScript : MonoBehaviour
         {
             OnLand.Invoke();
         }
-        if(grounded)
-        {
+        // if(grounded)
+        // {
             //we do this for the 3 seperate directions, as unity is bullshit
             if(GetRelativeSpeed() > maxHorizontalSpeed)
             {
@@ -90,7 +90,7 @@ public class BodyScript : MonoBehaviour
             rb.AddRelativeForce(moveVector * baseMoveSpeed);
             if(moveVector.x == 0) DoSlowdown(false);
             if(moveVector.y == 0) DoSlowdown(true); //slowdown depending on the input
-        }
+        // }
     }
     public void DoSlowdown() //global slowdown. use this when no keys are getting pressed
     {
@@ -99,7 +99,7 @@ public class BodyScript : MonoBehaviour
         vel.y *= slowdown;
         rb.velocity = vel;
     }
-    public void DoSlowdown(bool side) //use this when 1 key isnt pressed. it will slow the player down in a specific direction. false is left and right, true is forward and back
+    public void DoSlowdown(bool side) 
     {
         Vector3 localVelocity = rb.transform.InverseTransformDirection(rb.velocity); //math
         if (!side) //dont ask
