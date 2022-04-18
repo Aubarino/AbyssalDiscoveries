@@ -12,6 +12,8 @@ public class LocalController : MonoBehaviour
     public float bobIntensity;
     public float lookSensitivity;
     public BodyScript currentBody;
+    public List<BodyScript> switchableBodies = new List<BodyScript>();
+    public int cbody = 0;
     float currentBobSin;
     float bobTime;
     float cameraRot;
@@ -19,6 +21,11 @@ public class LocalController : MonoBehaviour
     {
         currentBody.OnJump.AddListener(CharacterJumped);
         currentBody.OnLand.AddListener(CharacterLanded);
+    }
+
+    public void SwitchToBody(BodyScript body)
+    {
+        currentBody = body;
     }
     private void Update()
     {
@@ -41,6 +48,15 @@ public class LocalController : MonoBehaviour
         if (cameraRot < -90) cameraRot = -90;
         transform.eulerAngles = new Vector3(cameraRot, currentBody.transform.eulerAngles.y, Camera.main.transform.eulerAngles.z);
         Cursor.lockState = CursorLockMode.Locked;
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            cbody++;
+            if(cbody >= switchableBodies.Count)
+            {
+                cbody = 0;
+            }
+            SwitchToBody(switchableBodies[cbody]);
+        }
     }
     private void FixedUpdate()
     {
