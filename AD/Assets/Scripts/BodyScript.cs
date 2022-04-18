@@ -73,6 +73,7 @@ public class BodyScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        print(GetRelativeSpeed());
         bool wasgrounded = grounded;
         grounded = Physics.Raycast(transform.position, Vector3.down, collHeight * 0.5f + 0.1f, walkableLayers); //if we are on the ground, we are grounded
         if (!wasgrounded && grounded)
@@ -85,12 +86,10 @@ public class BodyScript : MonoBehaviour
         if (GetRelativeSpeed() > maxHorizontalSpeed)
         {
             DoSlowdown();
-            print("a");
         }
         else
         {
             rb.AddRelativeForce(moveVector * baseMoveSpeed);
-            print("b");
         }
             
         if (moveVector.x == 0) DoSlowdown(false);
