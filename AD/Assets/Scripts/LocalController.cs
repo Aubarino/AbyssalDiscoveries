@@ -25,7 +25,11 @@ public class LocalController : MonoBehaviour
 
     public void SwitchToBody(BodyScript body)
     {
+        currentBody.OnJump.RemoveListener(CharacterJumped);
+        currentBody.OnLand.RemoveListener(CharacterLanded);
         currentBody = body;
+        currentBody.OnJump.AddListener(CharacterJumped);
+        currentBody.OnLand.AddListener(CharacterLanded);
     }
     private void Update()
     {
