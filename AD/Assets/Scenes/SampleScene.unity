@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.15874848, g: 0.13999079, b: 0.20368633, a: 1}
+  m_IndirectSpecularColor: {r: 0.15874858, g: 0.13999091, b: 0.20368643, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -391,9 +391,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bobOffsetTarget: 0
-  bobSpeed: 3.8
+  bobSpeed: 3
   inAirBobSpeed: 0.4
-  bobIntensity: 0.02
+  bobIntensity: 0.05
   lookSensitivity: 300
   currentBody: {fileID: 1123442888}
   switchableBodies:

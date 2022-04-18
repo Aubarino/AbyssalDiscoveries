@@ -44,20 +44,20 @@ public class BodyScript : MonoBehaviour
     public Vector3 moveVector; //determines where the entity wants to move, in local space. eg. if Z is 1, the entity will move forward. if X is -1, the entity will move left. if Y is 1, the entity will try to swim upwards.
     private void Start()
     {
-        if(doSetup && !didSetup)
+        if (doSetup && !didSetup)
         {
             didSetup = true; //make sure we dont do the setup twice
-            if(bodyMesh != null) //if we set the bodmyesh, then we do shit with it
+            if (bodyMesh != null) //if we set the bodmyesh, then we do shit with it
             {
                 MeshRenderer mesh = gameObject.AddComponent<MeshRenderer>();
-                MeshFilter filter= gameObject.AddComponent<MeshFilter>();
+                MeshFilter filter = gameObject.AddComponent<MeshFilter>();
                 filter.mesh = bodyMesh;
                 mesh.material = bodyMaterial;
             }
             rb = gameObject.AddComponent<Rigidbody>(); //rb creation
             rb.mass = rbMass;
             col = gameObject.AddComponent<CapsuleCollider>(); //collider creation
-            col.height= collHeight;
+            col.height = collHeight;
             col.radius = collSize;
             col.material = collMaterial;
             rb.freezeRotation = true;
@@ -65,7 +65,7 @@ public class BodyScript : MonoBehaviour
     }
     public void Jump()
     {
-        if(grounded)
+        if (grounded)
         {
             rb.AddForce(Vector3.up * baseJumpSpeed, ForceMode.Impulse);
             OnJump.Invoke();
@@ -75,31 +75,36 @@ public class BodyScript : MonoBehaviour
     {
         bool wasgrounded = grounded;
         grounded = Physics.Raycast(transform.position, Vector3.down, collHeight * 0.5f + 0.1f, walkableLayers); //if we are on the ground, we are grounded
-        if(!wasgrounded && grounded)
+        if (!wasgrounded && grounded)
         {
             OnLand.Invoke();
         }
         // if(grounded)
         // {
-            //we do this for the 3 seperate directions, as unity is bullshit
-            if(GetRelativeSpeed() > maxHorizontalSpeed)
-            {
-                DoSlowdown();
-            }
-            else
+        //we do this for the 3 seperate directions, as unity is bullshit
+        if (GetRelativeSpeed() > maxHorizontalSpeed)
+        {
+            DoSlowdown();
+            print("a");
+        }
+        else
+        {
             rb.AddRelativeForce(moveVector * baseMoveSpeed);
-            if(moveVector.x == 0) DoSlowdown(false);
-            if(moveVector.y == 0) DoSlowdown(true); //slowdown depending on the input
+            print("b");
+        }
+            
+        if (moveVector.x == 0) DoSlowdown(false);
+        if (moveVector.z == 0) DoSlowdown(true); //slowdown depending on the input
         // }
     }
     public void DoSlowdown() //global slowdown. use this when no keys are getting pressed
     {
         Vector3 vel = rb.velocity;
         vel.x *= slowdown;
-        vel.y *= slowdown;
+        vel.z *= slowdown;
         rb.velocity = vel;
     }
-    public void DoSlowdown(bool side) 
+    public void DoSlowdown(bool side)
     {
         Vector3 localVelocity = rb.transform.InverseTransformDirection(rb.velocity); //math
         if (!side) //dont ask
@@ -115,6 +120,6 @@ public class BodyScript : MonoBehaviour
     }
     public float GetRelativeSpeed() //use this instead of rb.velocity.magnitude. it factors in the speed of the surface we are standing on. 
     {
-        return rb.velocity.magnitude; //factor in the speed of whatever were standing on later
+        return Mathf.Sqrt(rb.velocity.x * rb.velocity.x + rb.velocity.y * rb.velocity.y + rb.velocity.z * rb.velocity.z); //factor in the speed of whatever were standing on later
     }
 }

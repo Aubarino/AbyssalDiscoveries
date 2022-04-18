@@ -65,7 +65,7 @@ public class LocalController : MonoBehaviour
     private void FixedUpdate()
     {
         //print(Input.GetAxisRaw("Vertical"));
-        currentBody.moveVector = ((Vector3.forward * Input.GetAxisRaw("Vertical")) + (Vector3.right * (Input.GetAxisRaw("Horizontal") * 0.5f)));
+        currentBody.moveVector = ((Vector3.forward * Input.GetAxisRaw("Vertical")) + (Vector3.right * (Input.GetAxisRaw("Horizontal"))));
         transform.position = currentBody.transform.TransformPoint(currentBody.desiredCameraPosition + ((Vector3.up * Mathf.Sin(bobTime)) * bobIntensity) + (Vector3.up * bobOffset));
     }
     void CharacterJumped() //called when the character jumps
