@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BodyScript : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class BodyScript : MonoBehaviour
     [Tooltip("If a camera was in this body, at what position should it be?")]
     public Vector3 desiredCameraPosition;
 
+    [HideInInspector]
+    public UnityEvent OnJump = new UnityEvent();
+    [HideInInspector]
+    public UnityEvent OnLand = new UnityEvent();
     //here come all the hidden variables
     float jumpcool; //makes sure you cant jump 20 times a second. cooldown
     CapsuleCollider col; //the main collider
@@ -58,23 +63,55 @@ public class BodyScript : MonoBehaviour
             rb.freezeRotation = true;
         }
     }
+    public void Jump()
+    {
+        if(grounded)
+        {
+            rb.AddForce(Vector3.up * baseJumpSpeed, ForceMode.Impulse);
+            OnJump.Invoke();
+        }
+    }
     private void FixedUpdate()
     {
+        bool wasgrounded = grounded;
         grounded = Physics.Raycast(transform.position, Vector3.down, collHeight * 0.5f + 0.1f, walkableLayers); //if we are on the ground, we are grounded
+        if(!wasgrounded && grounded)
+        {
+            OnLand.Invoke();
+        }
         if(grounded)
         {
             //we do this for the 3 seperate directions, as unity is bullshit
+            if(GetRelativeSpeed() > maxHorizontalSpeed)
+            {
+                DoSlowdown();
+            }
+            else
             rb.AddRelativeForce(moveVector * baseMoveSpeed);
-            
+            if(moveVector.x == 0) DoSlowdown(false);
+            if(moveVector.y == 0) DoSlowdown(true); //slowdown depending on the input
         }
     }
-    public void DoSlowdown()
+    public void DoSlowdown() //global slowdown. use this when no keys are getting pressed
     {
         Vector3 vel = rb.velocity;
         vel.x *= slowdown;
         vel.y *= slowdown;
         rb.velocity = vel;
-        //rb.
+    }
+    public void DoSlowdown(bool side) //use this when 1 key isnt pressed. it will slow the player down in a specific direction. false is left and right, true is forward and back
+    {
+        Vector3 localVelocity = rb.transform.InverseTransformDirection(rb.velocity); //math
+        if (!side) //dont ask
+        {
+            localVelocity.x *= slowdown;
+            rb.velocity = rb.transform.TransformDirection(localVelocity);
+        }
+        else
+        {
+            localVelocity.z *= slowdown;
+            rb.velocity = rb.transform.TransformDirection(localVelocity);
+        }
     }
     public float GetRelativeSpeed() //use this instead of rb.velocity.magnitude. it factors in the speed of the surface we are standing on. 
     {

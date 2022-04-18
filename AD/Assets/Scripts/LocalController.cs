@@ -10,24 +10,50 @@ public class LocalController : MonoBehaviour
     public float bobSpeed;
     public float inAirBobSpeed;
     public float bobIntensity;
+    public float lookSensitivity;
     public BodyScript currentBody;
     float currentBobSin;
     float bobTime;
+    float cameraRot;
+    private void Start()
+    {
+        currentBody.OnJump.AddListener(CharacterJumped);
+        currentBody.OnLand.AddListener(CharacterLanded);
+    }
     private void Update()
     {
         if(currentBody.grounded)
         bobTime += Time.deltaTime * bobSpeed * currentBody.GetRelativeSpeed();
         else
         {
-            bobTime += Time.deltaTime * bobSpeed * currentBody.GetRelativeSpeed();
+            bobTime += Time.deltaTime * inAirBobSpeed;
         }
         bobOffsetTarget = Mathf.Lerp(bobOffsetTarget, 0f, 5f * Time.deltaTime);
-        bobOffset = Mathf.SmoothStep(bobOffset, bobOffsetTarget, 5f * Time.deltaTime);
+        bobOffset = Mathf.Lerp(bobOffset, bobOffsetTarget, 5f * Time.deltaTime);
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            currentBody.Jump();
+        }
+        Vector2 curPos = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        currentBody.transform.Rotate(new Vector3(0, curPos.x * lookSensitivity * Time.deltaTime, 0), Space.Self);
+        cameraRot -= curPos.y * lookSensitivity * Time.deltaTime;
+        if (cameraRot > 90) cameraRot = 90;
+        if (cameraRot < -90) cameraRot = -90;
+        transform.eulerAngles = new Vector3(cameraRot, currentBody.transform.eulerAngles.y, Camera.main.transform.eulerAngles.z);
+        Cursor.lockState = CursorLockMode.Locked;
     }
     private void FixedUpdate()
     {
         print(Input.GetAxisRaw("Vertical"));
         currentBody.moveVector = Vector3.forward * Input.GetAxisRaw("Vertical") + Vector3.right * Input.GetAxisRaw("Horizontal");
         transform.position = currentBody.transform.TransformPoint(currentBody.desiredCameraPosition + Vector3.up * Mathf.Sin(bobTime) * bobIntensity + Vector3.up * bobOffset);
+    }
+    void CharacterJumped() //called when the character jumps
+    {
+        bobOffsetTarget -= 1f;
+    }
+    void CharacterLanded() //called when the character lands
+    {
+        bobOffsetTarget -= 1f;
     }
 }

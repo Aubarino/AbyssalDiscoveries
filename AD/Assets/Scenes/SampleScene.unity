@@ -166,7 +166,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -269,14 +268,20 @@ MonoBehaviour:
   collMaterial: {fileID: 13400000, guid: 215a6ebf30f3b18439240552e86c911f, type: 2}
   bodyMaterial: {fileID: 2100000, guid: 9b8eadc4de0544646b75ddcc43f8fd06, type: 2}
   baseMoveSpeed: 200
-  baseJumpSpeed: 100
-  maxHorizontalSpeed: 6
+  baseJumpSpeed: 55
+  maxHorizontalSpeed: 7
   slowdown: 0.95
   rbMass: 8
   walkableLayers:
     serializedVersion: 2
     m_Bits: 64
   desiredCameraPosition: {x: 0, y: 0.8, z: 0.3}
+  OnJump:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLand:
+    m_PersistentCalls:
+      m_Calls: []
   grounded: 0
   moveVector: {x: 0, y: 0, z: 0}
 --- !u!1 &1687258581
@@ -320,9 +325,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bobOffsetTarget: 0
-  bobSpeed: 3
-  inAirBobSpeed: 0
-  bobIntensity: 0.3
+  bobSpeed: 2
+  inAirBobSpeed: 0.4
+  bobIntensity: 0.18
+  lookSensitivity: 300
   currentBody: {fileID: 1123442888}
 --- !u!20 &1687258584
 Camera:
