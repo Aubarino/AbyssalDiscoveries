@@ -10,11 +10,15 @@ public class AirAreaManager : MonoBehaviour
     public float WaterVolumeMax
     { get; private set; }
     private float SingleUnit = 3;
-    private float WaterLevelY = 0; //the predicted y level
+    public float WaterLevelY = 0;
+    [HideInInspector]
+    public BoxCollider col;
 
     private void Start()
     {
         CreateWaterstffff();
+        AirNodeObj = gameObject;
+        col = GetComponent<BoxCollider>();
     }
 
     private void CreateWaterstffff() //professional B)))))))
@@ -30,7 +34,7 @@ public class AirAreaManager : MonoBehaviour
         );
     }
 
-    private void OnDrawGizmosSelected() //water level preview for the unity editor alone, not used in normal gameplay i guess
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube((AirNodeObj.transform.position + new Vector3(0,WaterLevelY,0)), new Vector3(AirNodeObj.transform.localScale.x * 2, 0, AirNodeObj.transform.localScale.z * 2));
@@ -41,9 +45,8 @@ public class AirAreaManager : MonoBehaviour
         var rend = AirNodeObj.GetComponent<MeshRenderer>();
         float WatLevel = Mathf.Clamp(((1 / WaterVolumeMax) * WaterVolume), 0, 1); //set the water level rendering stuff to a devision of the volume max accordingly, 1 is always max.
         rend.material.SetFloat("WatLevel", WatLevel);
-        WaterVolume ++;
+        //WaterVolume ++;
         WaterVolume = Mathf.Clamp(WaterVolume, 0, WaterVolumeMax); //water deletes past a certain range, sorry. :)
-        Debug.Log(WaterVolume + "Water Volume... Water MAX :" + WaterVolumeMax);
         float WaterLevelYTemp = ((((WatLevel * 2) * 1.05f) - 1.05f) * Mathf.Abs(AirNodeObj.transform.localScale.y)); //water level y pos prediction stuff
         WaterLevelY = ((WaterLevelYTemp * 1));
     }
