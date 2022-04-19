@@ -29,6 +29,8 @@ public class BodyScript : MonoBehaviour
     public LayerMask walkableLayers;
     [Tooltip("If a camera was in this body, at what position should it be?")]
     public Vector3 desiredCameraPosition;
+    [Tooltip("The name of the creature. Right now, used in doing the limb setup")]
+    public string CreatureName;
 
 
     public bool inWater, faceInWater; //determines if we are in or out of water
@@ -45,6 +47,7 @@ public class BodyScript : MonoBehaviour
     [HideInInspector]
     public Vector3 moveVector; //determines where the entity wants to move, in local space. eg. if Z is 1, the entity will move forward. if X is -1, the entity will move left. if Y is 1, the entity will try to swim upwards.
     public float sideVector; //when in water, rotate left and right
+    public List<Limb> limbs = new List<Limb>();
     private void Start()
     {
         if (doSetup && !didSetup)
@@ -64,6 +67,15 @@ public class BodyScript : MonoBehaviour
             col.radius = collSize;
             col.material = collMaterial;
             rb.freezeRotation = true;
+        }
+        if(CreatureName == "Human")
+        {
+            limbs.Add(new Limb("Head", "head"));
+            limbs.Add(new Limb("Torso", "torso"));
+            limbs.Add(new Limb("Right Arm", "rarm"));
+            limbs.Add(new Limb("Left Arm", "larm"));
+            limbs.Add(new Limb("Right Leg", "rleg"));
+            limbs.Add(new Limb("Left Leg", "lreg"));
         }
     }
     public void Jump()
@@ -150,5 +162,22 @@ public class BodyScript : MonoBehaviour
     public float GetRelativeSpeed() //use this instead of rb.velocity.magnitude. it factors in the speed of the surface we are standing on. 
     {
         return Mathf.Sqrt(rb.velocity.x * rb.velocity.x + rb.velocity.y * rb.velocity.y + rb.velocity.z * rb.velocity.z); //factor in the speed of whatever were standing on later
+    }
+    public class Limb
+    {
+        public string name { get; private set; }
+        string identifier;
+        public List<Affliction> afflictions = new List<Affliction>();
+
+        public Limb(string nm, string id)
+        {
+            name = nm;
+            identifier = id;
+        }
+    }
+    public class Affliction
+    {
+        public float strength;
+        //public AfflictionPrefab prefab; UNCOMMENT THIS WHEN WE ADD THE AFFLICTIONPREFAB
     }
 }

@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 [RequireComponent(typeof(Camera))]
 public class LocalController : MonoBehaviour
 {
@@ -17,10 +18,16 @@ public class LocalController : MonoBehaviour
     float currentBobSin; //idk, unused
     float bobTime; //current bob height and stuff
     float cameraRot; //idfk its copied from another game of mine
+    Volume underwaterVol;
+    GameObject distortionPlane;
     private void Start()
     {
         currentBody.OnJump.AddListener(CharacterJumped); //listeners for jumping and landing, for camera bob
         currentBody.OnLand.AddListener(CharacterLanded);
+        underwaterVol = transform.GetChild(1).GetComponent<Volume>();
+        underwaterVol.weight = 0f;
+        distortionPlane = transform.GetChild(2).gameObject;
+        distortionPlane.SetActive(false);
     }
 
     public void SwitchToBody(BodyScript body)
@@ -54,6 +61,8 @@ public class LocalController : MonoBehaviour
             if (cameraRot > 90) cameraRot = 90;
             if (cameraRot < -90) cameraRot = -90;
             transform.eulerAngles = new Vector3(cameraRot, currentBody.transform.eulerAngles.y, Camera.main.transform.eulerAngles.z);
+            underwaterVol.weight = Mathf.Lerp(underwaterVol.weight, 0f, Time.deltaTime * 10f);
+            distortionPlane.SetActive(false);
         }
         else
         {
@@ -67,6 +76,9 @@ public class LocalController : MonoBehaviour
                 currentBody.moveVector.y = -1f;
             }
             else { currentBody.moveVector.y = 0f; }
+            underwaterVol.weight = Mathf.Lerp(underwaterVol.weight, 1f, Time.deltaTime * 10f);
+            distortionPlane.SetActive(true);
+
         }
 
         Cursor.lockState = CursorLockMode.Locked; //lock the cursor

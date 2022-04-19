@@ -8,6 +8,7 @@ public class DBManager : MonoBehaviour
     {
         //setup all the databases
         ItemDatabase.Startup();
+        AfflictionDatabase.Startup();
     }
 
 }
