@@ -30,6 +30,8 @@ public class BodyScript : MonoBehaviour
     [Tooltip("If a camera was in this body, at what position should it be?")]
     public Vector3 desiredCameraPosition;
 
+
+    public bool inWater, faceInWater; //determines if we are in or out of water
     [HideInInspector]
     public UnityEvent OnJump = new UnityEvent();
     [HideInInspector]
@@ -42,6 +44,7 @@ public class BodyScript : MonoBehaviour
     public bool grounded; //determines if the entity sees itself as grounded
     [HideInInspector]
     public Vector3 moveVector; //determines where the entity wants to move, in local space. eg. if Z is 1, the entity will move forward. if X is -1, the entity will move left. if Y is 1, the entity will try to swim upwards.
+    public float sideVector; //when in water, rotate left and right
     private void Start()
     {
         if (doSetup && !didSetup)
@@ -67,8 +70,33 @@ public class BodyScript : MonoBehaviour
     {
         if (grounded)
         {
-            rb.AddForce(Vector3.up * baseJumpSpeed, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * baseJumpSpeed, ForceMode.Impulse); //if were grounded, jump
             OnJump.Invoke();
+        }
+    }
+    public void EnterWater() //called when we enter the water
+    {
+        rb.freezeRotation = false;
+        inWater = true;
+        //rb.useGravity = false;
+        rb.drag = 3;
+        rb.angularDrag = 3f;
+    }
+    public void ExitWater() //called when we exit the water
+    {
+        rb.freezeRotation = true;
+        inWater = false;
+        //rb.useGravity = false;
+        rb.drag = 0;
+        rb.angularDrag = 0.05f;
+        transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+    }
+    public void Look(Vector2 dir) //used by AI/LocalController, makes the capsule look around
+    {
+        transform.Rotate(new Vector3(0, dir.x, 0), Space.Self);
+        if(inWater)
+        {
+            transform.Rotate(new Vector3(-dir.y, 0, 0), Space.Self);
         }
     }
     private void FixedUpdate()
@@ -77,19 +105,21 @@ public class BodyScript : MonoBehaviour
         bool wasgrounded = grounded;
         grounded = Physics.Raycast(transform.position, Vector3.down, collHeight * 0.5f + 0.1f, walkableLayers); //if we are on the ground, we are grounded
         if (!wasgrounded && grounded)
-        {
-            OnLand.Invoke();
+        { 
+            OnLand.Invoke(); //if we land, invoke the onland event
         }
-        // if(grounded)
-        // {
-        //we do this for the 3 seperate directions, as unity is bullshit
         if (GetRelativeSpeed() > maxHorizontalSpeed)
         {
-            DoSlowdown();
+            DoSlowdown(); //slowdown if we are going faster than max move speed
         }
         else
         {
-            rb.AddRelativeForce(moveVector * baseMoveSpeed);
+            rb.AddRelativeForce(moveVector * baseMoveSpeed); //if we arent, move according to the movevector
+        }
+        if(inWater)
+        {
+            rb.AddRelativeTorque(Vector3.forward * -sideVector * baseMoveSpeed * 0.08f); //if in water, do the water movement
+            //rb.AddForce(phy)
         }
             
         if (moveVector.x == 0) DoSlowdown(false);
@@ -103,7 +133,7 @@ public class BodyScript : MonoBehaviour
         vel.z *= slowdown;
         rb.velocity = vel;
     }
-    public void DoSlowdown(bool side)
+    public void DoSlowdown(bool side) //slowdown for 1 specific side
     {
         Vector3 localVelocity = rb.transform.InverseTransformDirection(rb.velocity); //math
         if (!side) //dont ask
