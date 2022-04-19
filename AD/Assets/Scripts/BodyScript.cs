@@ -48,6 +48,7 @@ public class BodyScript : MonoBehaviour
     public Vector3 moveVector; //determines where the entity wants to move, in local space. eg. if Z is 1, the entity will move forward. if X is -1, the entity will move left. if Y is 1, the entity will try to swim upwards.
     public float sideVector; //when in water, rotate left and right
     public List<Limb> limbs = new List<Limb>();
+    public List<AirAreaManager> nodes = new List<AirAreaManager>();
     private void Start()
     {
         if (doSetup && !didSetup)
@@ -77,6 +78,7 @@ public class BodyScript : MonoBehaviour
             limbs.Add(new Limb("Right Leg", "rleg"));
             limbs.Add(new Limb("Left Leg", "lreg"));
         }
+        nodes.AddRange(FindObjectsOfType<AirAreaManager>());
     }
     public void Jump()
     {
@@ -137,6 +139,22 @@ public class BodyScript : MonoBehaviour
         if (moveVector.x == 0) DoSlowdown(false);
         if (moveVector.z == 0) DoSlowdown(true); //slowdown depending on the input
         // }
+        bool inair = false;
+        foreach(AirAreaManager air in nodes)
+        {
+            if (air.col.bounds.Contains(transform.position))
+            {
+                print(air.name);
+                if (transform.position.y > air.WaterLevelY + air.transform.position.y)
+                {
+                    inair = true; 
+                }
+                break;
+            }
+        }
+        if(!inair && !inWater) EnterWater();
+        if (inair && inWater) { ExitWater();}
+        print(inair + ", water: " + inWater);
     }
     public void DoSlowdown() //global slowdown. use this when no keys are getting pressed
     {

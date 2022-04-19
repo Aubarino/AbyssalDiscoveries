@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2070390348052344754}
   - component: {fileID: 3287129839478082342}
   - component: {fileID: 5393765544286651842}
+  - component: {fileID: 3421483532963686528}
   m_Layer: 0
   m_Name: AirNode
   m_TagString: Untagged
@@ -94,3 +95,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819cc7c0ec9935d40ab7798a579cf84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AirNodeObj: {fileID: 0}
+  WaterVolume: 0
+  WaterLevelY: 0
+  col: {fileID: 0}
+--- !u!65 &3421483532963686528
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393765544286651843}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
