@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 [RequireComponent(typeof(Camera))]
 public class LocalController : MonoBehaviour
 {
@@ -20,14 +21,54 @@ public class LocalController : MonoBehaviour
     float cameraRot; //idfk its copied from another game of mine
     Volume underwaterVol;
     GameObject distortionPlane;
+    public Image healthbar;
+    public RectTransform affHolder;
     private void Start()
     {
         currentBody.OnJump.AddListener(CharacterJumped); //listeners for jumping and landing, for camera bob
         currentBody.OnLand.AddListener(CharacterLanded);
+        currentBody.OnDamage.AddListener(Damaged);
         underwaterVol = transform.GetChild(1).GetComponent<Volume>();
         underwaterVol.weight = 0f;
         distortionPlane = transform.GetChild(2).gameObject;
         distortionPlane.SetActive(false);
+        healthbar = transform.GetChild(3).GetChild(0).GetComponent<Image>();
+        affHolder = transform.GetChild(3).GetChild(1).GetComponent<RectTransform>();
+    }
+    public void Damaged()
+    {
+        float vit = currentBody.GetVitality();
+        if (vit > 100f)
+        {
+            healthbar.fillAmount = (vit - 100) * 0.01f;
+            healthbar.color = Color.white;
+        }
+        else
+        {
+            healthbar.fillAmount = vit * 0.01f;
+            healthbar.color = Color.red;
+        }
+        foreach (Transform child in affHolder)
+        {
+            Destroy(child.gameObject);
+        }
+        int i = 0;
+        //print(currentBody.GetAllAfflictions()[0].strength);
+        foreach(Affliction aff in currentBody.GetAllAfflictions()) //generate a bunch of images depending on what afflictions the body has 
+        {
+            if(aff.strength >= aff.prefab.visibilityTreshold)
+            {
+                GameObject g = new GameObject("AfflictionImage" ,typeof(CanvasRenderer), typeof(Image));
+                g.GetComponent<RectTransform>().parent = affHolder;
+                g.GetComponent<RectTransform>().anchoredPosition = Vector2.zero + Vector2.left * i * 50f;
+                Image img = g.GetComponent<Image>();
+                img.sprite = aff.prefab.icon;
+                img.color = Color.Lerp(aff.prefab.mincolor, aff.prefab.maxcolor, aff.strength / aff.prefab.maxStrength);
+                img.SetNativeSize();
+                i++;
+            }
+        }
+
     }
 
     public void SwitchToBody(BodyScript body)
@@ -35,9 +76,12 @@ public class LocalController : MonoBehaviour
         transform.rotation = Quaternion.identity; //reset camera rotation so its not broken
         currentBody.OnJump.RemoveListener(CharacterJumped);
         currentBody.OnLand.RemoveListener(CharacterLanded);
+        currentBody.OnDamage.RemoveListener(Damaged);
         currentBody = body;
         currentBody.OnJump.AddListener(CharacterJumped);
         currentBody.OnLand.AddListener(CharacterLanded);
+        currentBody.OnDamage.AddListener(Damaged);
+        Damaged();
     }
     private void Update()
     {
@@ -57,10 +101,17 @@ public class LocalController : MonoBehaviour
         currentBody.Look(curPos * Time.deltaTime * lookSensitivity); //look around using the mouse position
         if(!currentBody.inWater)
         {
-            cameraRot -= curPos.y * lookSensitivity * Time.deltaTime; //if not in water, do the usual look around
-            if (cameraRot > 90) cameraRot = 90;
-            if (cameraRot < -90) cameraRot = -90;
-            transform.eulerAngles = new Vector3(cameraRot, currentBody.transform.eulerAngles.y, currentBody.transform.eulerAngles.z);
+            if(!currentBody.isRagdoll)
+            {
+                cameraRot -= curPos.y * lookSensitivity * Time.deltaTime; //if not in water, do the usual look around
+                if (cameraRot > 90) cameraRot = 90;
+                if (cameraRot < -90) cameraRot = -90;
+                transform.eulerAngles = new Vector3(cameraRot, currentBody.transform.eulerAngles.y, currentBody.transform.eulerAngles.z);
+            }
+            else
+            {
+                transform.rotation = currentBody.transform.rotation;
+            }
             underwaterVol.weight = Mathf.Lerp(underwaterVol.weight, 0f, Time.deltaTime * 10f);
             distortionPlane.SetActive(false);
         }
