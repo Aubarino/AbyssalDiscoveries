@@ -10,7 +10,7 @@ public class AirAreaManager : MonoBehaviour
     public float WaterVolumeMax
     { get; private set; }
     private float SingleUnit = 3;
-    private float WaterLevelY = 0;
+    private float WaterLevelY = 0; //the predicted y level
 
     private void Start()
     {
@@ -30,7 +30,7 @@ public class AirAreaManager : MonoBehaviour
         );
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected() //water level preview for the unity editor alone, not used in normal gameplay i guess
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube((AirNodeObj.transform.position + new Vector3(0,WaterLevelY,0)), new Vector3(AirNodeObj.transform.localScale.x * 2, 0, AirNodeObj.transform.localScale.z * 2));
