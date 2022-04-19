@@ -40,10 +40,11 @@
      <Compile Include="Assets\Scripts\Databases\Item.cs" />
      <Compile Include="Assets\Scripts\BodyScript.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+     <Compile Include="Assets\Scripts\Databases\AfflictionDatabase.cs" />
+     <Compile Include="Assets\Scripts\Watery\AirAreaManager.cs" />
      <Compile Include="Assets\Scripts\LocalController.cs" />
      <Compile Include="Assets\Scripts\Databases\DBManager.cs" />
      <Compile Include="Assets\Scripts\Databases\ItemDatabase.cs" />
-     <Compile Include="Assets\Scripts\Watery\AirAreaManager.cs" />
     <Reference Include="UnityEngine">
         <HintPath>X:\Sections\UnityBasedWork\MainUnityFolder\2020.3.15f2\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
