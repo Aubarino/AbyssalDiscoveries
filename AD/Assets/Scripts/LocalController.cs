@@ -112,12 +112,10 @@ public class LocalController : MonoBehaviour
             {
                 transform.rotation = currentBody.transform.rotation;
             }
-            underwaterVol.weight = Mathf.Lerp(underwaterVol.weight, 0f, Time.deltaTime * 10f);
-            distortionPlane.SetActive(false);
         }
         else
         {
-            transform.rotation = currentBody.transform.rotation; //if in water, match our camera position with the body
+            transform.rotation = Quaternion.Lerp(transform.rotation, currentBody.transform.rotation, 5f * Time.deltaTime); //if in water, match our camera position with the body
             if (Input.GetKey(KeyCode.Space))
             {
                 currentBody.moveVector.y = 1f; //move up and down with space and shift
@@ -127,9 +125,19 @@ public class LocalController : MonoBehaviour
                 currentBody.moveVector.y = -1f;
             }
             else { currentBody.moveVector.y = 0f; }
+            cameraRot = currentBody.transform.localEulerAngles.x;
+            print(cameraRot);
+
+        }
+        if(currentBody.faceInWater)
+        {
             underwaterVol.weight = Mathf.Lerp(underwaterVol.weight, 1f, Time.deltaTime * 10f);
             distortionPlane.SetActive(true);
-
+        }
+        else
+        {
+            underwaterVol.weight = Mathf.Lerp(underwaterVol.weight, 0f, Time.deltaTime * 10f);
+            distortionPlane.SetActive(false);
         }
 
         Cursor.lockState = CursorLockMode.Locked; //lock the cursor
