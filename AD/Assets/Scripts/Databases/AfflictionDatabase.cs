@@ -42,7 +42,7 @@ public static class AfflictionDatabase
             100f,
             Color.white,
             Color.red,
-            Resources.Load<Sprite>("barotrauma")
+            Resources.Load<Sprite>("Afflictions/barotrauma")
             ));
         Afflictions.Add(new AfflictionPrefab(
             "Hypoxemia",
@@ -56,7 +56,7 @@ public static class AfflictionDatabase
             100f,
             Color.cyan,
             Color.magenta,
-            Resources.Load<Sprite>("oxygen")
+            Resources.Load<Sprite>("Afflictions/oxygen")
             ));
         Debug.Log(Afflictions[0].name);
     }

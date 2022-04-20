@@ -13,10 +13,12 @@ public class AirAreaManager : MonoBehaviour
     public float WaterLevelY = 0; //the predicted y level
     public float AirAreaYBounds
     { get; private set; }
+    public BoxCollider col;
 
     private void Start()
     {
         CreateWaterstffff();
+        col = GetComponent<BoxCollider>();
     }
 
     private void CreateWaterstffff() //professional B)))))))
