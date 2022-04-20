@@ -34,6 +34,7 @@ public class BodyScript : MonoBehaviour
     public bool dead = false;
     public bool isRagdoll = false;
     public float stunTime; //if above 0, you cant unragdoll. goes down over time
+    float afflictionCooldown;
 
 
     public bool inWater, faceInWater; //determines if we are in or out of water
@@ -214,12 +215,32 @@ public class BodyScript : MonoBehaviour
         if (inair && inWater) { ExitWater(); }
         if (indeepwater) GiveAffliction("barotrauma", Time.fixedDeltaTime * 10f);
         else if (HasAffliction("barotrauma", 0f)) GiveAffliction("barotrauma", -Time.fixedDeltaTime * 20f);
-        if (faceInWater) GiveAffliction("hypoxemia", Time.fixedDeltaTime * 1.8f);
+        if (faceInWater) GiveAffliction("hypoxemia", Time.fixedDeltaTime * 3f);
         else if (HasAffliction("hypoxemia", 0f)) GiveAffliction("hypoxemia", -Time.fixedDeltaTime * 10f);
         stunTime -= Time.fixedDeltaTime;
         if (isRagdoll)
         {
             ExitRagdoll();
+        }
+
+        afflictionCooldown -= Time.fixedDeltaTime;
+        if(afflictionCooldown <0f) //every second, update every affliction based on the afftrigger
+        {
+            afflictionCooldown = 1f;
+            foreach(Affliction aff in GetAllAfflictions())
+            {
+                if(aff.prefab.afftrig != null)
+                {
+                    print(aff.strength >= aff.prefab.afftrig.minStrength);
+                    print(aff.strength);
+                    print(aff.prefab.afftrig.minStrength);
+                }
+                if(aff.prefab.afftrig != null && aff.strength >= aff.prefab.afftrig.minStrength && aff.prefab.afftrig.chance > Random.Range(0f,1f))
+                {
+                    print("triggering");
+                    GiveAffliction(aff.prefab.afftrig.affliction, aff.prefab.afftrig.strength);
+                }
+            }
         }
     }
     public void DoSlowdown() //global slowdown. use this when no keys are getting pressed

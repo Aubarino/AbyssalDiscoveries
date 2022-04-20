@@ -106,7 +106,7 @@ public class LocalController : MonoBehaviour
                 cameraRot -= curPos.y * lookSensitivity * Time.deltaTime; //if not in water, do the usual look around
                 if (cameraRot > 90) cameraRot = 90;
                 if (cameraRot < -90) cameraRot = -90;
-                transform.eulerAngles = new Vector3(cameraRot, currentBody.transform.eulerAngles.y, currentBody.transform.eulerAngles.z);
+                transform.eulerAngles = new Vector3(cameraRot, currentBody.transform.eulerAngles.y,Mathf.LerpAngle(transform.eulerAngles.z, currentBody.transform.eulerAngles.z, 5f * Time.deltaTime));
             }
             else
             {
@@ -125,8 +125,7 @@ public class LocalController : MonoBehaviour
                 currentBody.moveVector.y = -1f;
             }
             else { currentBody.moveVector.y = 0f; }
-            cameraRot = currentBody.transform.localEulerAngles.x;
-            print(cameraRot);
+            //cameraRot = currentBody.transform.localEulerAngles.x;
 
         }
         if(currentBody.faceInWater)
