@@ -193,6 +193,7 @@ public class BodyScript : MonoBehaviour
         // }
         bool inair = false;
         bool indeepwater = true;
+        faceInWater = true;
         foreach (AirAreaManager air in nodes)
         {
             if (air.col.bounds.Contains(transform.position))
@@ -202,6 +203,10 @@ public class BodyScript : MonoBehaviour
                 {
                     inair = true;
                 }
+                if (transform.TransformPoint(desiredCameraPosition).y > air.WaterLevelY + air.transform.position.y)
+                {
+                    faceInWater = false;
+                }
                 break;
             }
         }
@@ -209,7 +214,7 @@ public class BodyScript : MonoBehaviour
         if (inair && inWater) { ExitWater(); }
         if (indeepwater) GiveAffliction("barotrauma", Time.fixedDeltaTime * 10f);
         else if (HasAffliction("barotrauma", 0f)) GiveAffliction("barotrauma", -Time.fixedDeltaTime * 20f);
-        if (!inair) GiveAffliction("hypoxemia", Time.fixedDeltaTime * 1.8f);
+        if (faceInWater) GiveAffliction("hypoxemia", Time.fixedDeltaTime * 1.8f);
         else if (HasAffliction("hypoxemia", 0f)) GiveAffliction("hypoxemia", -Time.fixedDeltaTime * 10f);
         stunTime -= Time.fixedDeltaTime;
         if (isRagdoll)
