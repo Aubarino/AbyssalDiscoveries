@@ -2513,7 +2513,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "1d5adc16b7444c0cbd563e748b33ad81",
     "m_Id": 0,
-    "m_DisplayName": "WaterTransparency",
+    "m_DisplayName": "WaterAncy",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

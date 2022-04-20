@@ -36,17 +36,17 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BodyScript.cs" />
+     <Compile Include="Assets\Scripts\Databases\AfflictionDatabase.cs" />
+     <Compile Include="Assets\Scripts\Databases\DBManager.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\Databases\Item.cs" />
-     <Compile Include="Assets\Scripts\BodyScript.cs" />
+     <Compile Include="Assets\Scripts\CScompiling\RuntimeCompiler.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-     <Compile Include="Assets\Scripts\Databases\AfflictionDatabase.cs" />
      <Compile Include="Assets\Scripts\Watery\AirAreaManager.cs" />
      <Compile Include="Assets\Scripts\LocalController.cs" />
-     <Compile Include="Assets\Scripts\Databases\DBManager.cs" />
-     <Compile Include="Assets\Scripts\Databases\ItemDatabase.cs" />
-     <Compile Include="Assets\Scripts\CScompiling\RuntimeCompiler.cs" />
      <Compile Include="Assets\Scripts\CScompiling\TestScript.cs" />
+     <Compile Include="Assets\Scripts\Databases\ItemDatabase.cs" />
     <Reference Include="UnityEngine">
         <HintPath>X:\Sections\UnityBasedWork\MainUnityFolder\2020.3.15f2\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -269,11 +269,17 @@
     <Reference Include="UnityEditor.UnityConnectModule">
         <HintPath>X:\Sections\UnityBasedWork\MainUnityFolder\2020.3.15f2\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="System.IO.FileSystem.Primitives">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.X509Certificates">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.Encoding">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Security.Cryptography.Encoding.dll</HintPath>
@@ -284,53 +290,32 @@
     <Reference Include="System.Threading.Thread">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Threading.Thread.dll</HintPath>
     </Reference>
+    <Reference Include="Trivial.Mono.Cecil.Mdb">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\Trivial.Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlDocument">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Xml.XmlDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.IO.FileSystem.dll</HintPath>
+    </Reference>
     <Reference Include="Trivial.Mono.Cecil">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\Trivial.Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.Primitives">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Security.Cryptography.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System.AppContext">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.AppContext.dll</HintPath>
     </Reference>
-    <Reference Include="System.Diagnostics.FileVersionInfo">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Diagnostics.FileVersionInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.XmlDocument">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Xml.XmlDocument.dll</HintPath>
-    </Reference>
     <Reference Include="Trivial.Mono.Cecil.Pdb">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\Trivial.Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.XPath">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Xml.XPath.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.FileSystem.Primitives">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.IO.FileSystem.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Trivial.Mono.Cecil.Mdb">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\Trivial.Mono.Cecil.Mdb.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.FileSystem">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.IO.FileSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reflection.Metadata">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Reflection.Metadata.dll</HintPath>
-    </Reference>
-    <Reference Include="Trivial.CodeSecurity">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\Trivial.CodeSecurity.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.XPath.XDocument">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Xml.XPath.XDocument.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Collections.Immutable">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Collections.Immutable.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\Microsoft.CodeAnalysis.dll</HintPath>
@@ -338,8 +323,23 @@
     <Reference Include="System.Security.Cryptography.Algorithms">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Diagnostics.StackTrace">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Diagnostics.StackTrace.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="Trivial.CodeSecurity">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\Trivial.CodeSecurity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Xml.XPath.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.FileVersionInfo">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Assets\RoslynCSharp\Plugin\System.Diagnostics.FileVersionInfo.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
         <HintPath>X:\Sections\UnityBasedWork\MainUnityFolder\2020.3.15f2\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\mscorlib.dll</HintPath>
@@ -689,17 +689,11 @@
     <Reference Include="System.Xml.XPath.XDocument">
         <HintPath>X:\Sections\UnityBasedWork\MainUnityFolder\2020.3.15f2\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.ShaderGraph.Editor">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VSCode.Editor">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Editor">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
@@ -710,23 +704,11 @@
     <Reference Include="Unity.VisualStudio.Editor">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Timeline">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics.Editor">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Searcher.Editor">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
@@ -749,11 +731,29 @@
     <Reference Include="UnityEngine.UI">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Mathematics">
         <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+        <HintPath>X:\Sections\Projects\Games\AD\git\AD\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -761,13 +761,13 @@
       <Project>{ccf4c038-dd5a-1eb2-879a-c45ba60d04b0}</Project>
       <Name>RoslynCSharp.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="RoslynCSharp.Examples.csproj">
-      <Project>{c75e977b-619b-fa4c-f5e4-5a74bd406091}</Project>
-      <Name>RoslynCSharp.Examples</Name>
-    </ProjectReference>
     <ProjectReference Include="RoslynCSharp.csproj">
       <Project>{9496a2f1-ed1d-5429-222d-14091c8aab2e}</Project>
       <Name>RoslynCSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="RoslynCSharp.Examples.csproj">
+      <Project>{c75e977b-619b-fa4c-f5e4-5a74bd406091}</Project>
+      <Name>RoslynCSharp.Examples</Name>
     </ProjectReference>
     <ProjectReference Include="RoslynCSharp.Compiler.csproj">
       <Project>{128cb0de-f16d-4155-6d20-2cb4a82ff070}</Project>
