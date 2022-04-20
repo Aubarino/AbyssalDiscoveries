@@ -106,7 +106,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_f3277ab5f0c74616809d8568edc93de2: 0.69
-    - WatLevel: 0.5
+    - WatLevel: 0.497
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1

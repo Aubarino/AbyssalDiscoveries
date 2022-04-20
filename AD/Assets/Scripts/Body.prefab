@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6038280600946458975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6038280600946458971}
+  - component: {fileID: 6038280600946458964}
+  m_Layer: 0
+  m_Name: Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6038280600946458971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038280600946458975}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.59, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6038280600946458964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038280600946458975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0b5ff746b653148b674bf119304bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doSetup: 1
+  bodyMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  collHeight: 2
+  collSize: 0.4
+  collMaterial: {fileID: 13400000, guid: 215a6ebf30f3b18439240552e86c911f, type: 2}
+  bodyMaterial: {fileID: 2100000, guid: 9b8eadc4de0544646b75ddcc43f8fd06, type: 2}
+  baseMoveSpeed: 200
+  baseJumpSpeed: 55
+  maxHorizontalSpeed: 7
+  slowdown: 0.9
+  rbMass: 8
+  walkableLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  desiredCameraPosition: {x: 0, y: 0.8, z: 0.3}
+  CreatureName: 
+  inWater: 0
+  faceInWater: 0
+  OnJump:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLand:
+    m_PersistentCalls:
+      m_Calls: []
+  grounded: 0
+  moveVector: {x: 0, y: 0, z: 0}
+  sideVector: 0
