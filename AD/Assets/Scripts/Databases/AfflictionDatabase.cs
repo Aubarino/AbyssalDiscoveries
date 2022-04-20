@@ -14,7 +14,7 @@ public static class AfflictionDatabase
         Debug.Log("Affliction Database Startup");
     }
 
-    private static void RegisterDevAffs()
+    private static void RegisterDevAffs() //AFFLICTION TRIGGERS: drown, lowoxygen, barotrauma
     {
         Afflictions.Add(new AfflictionPrefab(
             "Brain damage",
@@ -44,19 +44,20 @@ public static class AfflictionDatabase
             Color.red,
             Resources.Load<Sprite>("Afflictions/barotrauma")
             ));
-        Afflictions.Add(new AfflictionPrefab(
-            "Hypoxemia",
-            "Hypo, meaning low, xemia, meaning oxygen presence in blood.",
-            "hypoxemia",
-            true,
-            new Vector2(0f, 2f),
-            10f,
-            "",
-            "",
-            100f,
-            Color.cyan,
-            Color.magenta,
-            Resources.Load<Sprite>("Afflictions/oxygen")
+        Afflictions.Add(new AfflictionPrefab( //Add the new affliction using this
+            "Hypoxemia", //The ingame affliction name
+            "Hypo, meaning low, xemia, meaning oxygen presence in blood.", //The ingame affliction description, eg. The patient has red, veiny eyes, is in pain, and severe organ damage is suspected.
+            "hypoxemia", //the identifier, used only in code
+            false, //whether the affliction scales with vitality (if false, it will reduce the vitality a flat amount. if true, it will reduce vitality from 0 to 200, killing you)
+            new Vector2(0f, 100f), //the amount of vitality that the affliction removes
+            10f, //the strength treshold where the vitality becomes visible onscreen
+            "", //per second script (unused)
+            "", //on damage script (unused)
+            100f, //the max affliction strength
+            Color.cyan, //the beginning affliction color in the ui (at 0 strength)
+            Color.red, //the ending affliction color in the ui (at max strength)
+            Resources.Load<Sprite>("Afflictions/oxygen"), //the ingame affliction icon
+            new AffTrigger("neurotrauma", 1f, 3.4f, 70f) //the affliction trigger. first is the wanted affliction identifier, second is the chance per second, third is the strength of the given affliction, fourth is the min current afflictions strength
             ));
         Debug.Log(Afflictions[0].name);
     }
@@ -84,7 +85,8 @@ public class AfflictionPrefab : IComparable<AfflictionPrefab>
     public float maxStrength;
     public Color mincolor, maxcolor;
     public Sprite icon;
-    public AfflictionPrefab(string nm, string dsc, string id, bool scv, Vector2 red, float vistresh, string scr, string ondmg, float str, Color min, Color max, Sprite ico)
+    public AffTrigger afftrig;
+    public AfflictionPrefab(string nm, string dsc, string id, bool scv, Vector2 red, float vistresh, string scr, string ondmg, float str, Color min, Color max, Sprite ico, AffTrigger aff = null)
     {
         name = nm;
         description = dsc;
@@ -98,6 +100,7 @@ public class AfflictionPrefab : IComparable<AfflictionPrefab>
         mincolor = min;
         maxcolor = max;
         icon = ico;
+        afftrig = aff;
     }
     public int CompareTo(AfflictionPrefab other)
     {
@@ -106,5 +109,19 @@ public class AfflictionPrefab : IComparable<AfflictionPrefab>
             return 1;
         }
         return 0;
+    }
+}
+public class AffTrigger
+{
+    public string affliction;
+    public float chance;
+    public float strength;
+    public float minStrength;
+    public AffTrigger(string aff, float ch, float str, float minstr)
+    {
+        affliction = aff;
+        chance = ch;
+        strength = str;
+        minStrength = minstr;
     }
 }
