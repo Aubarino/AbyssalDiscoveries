@@ -82,8 +82,8 @@ Material:
     m_Floats:
     - Vector1_920e892511c44bcb8fd99a6a9d072b2c: 0.015
     - Vector1_fac69c803d384356be363ade117d9738: 0.1
-    - WatAncy: 0.1
-    - WatFog: 2
+    - WatAncy: 0.25
+    - WatFog: 3
     - WatTransparency: 0.1
     - _AlphaClip: 0
     - _Blend: 0
@@ -113,8 +113,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_70edeb36773945979e5ce46524c66d1d: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 0}
-    - WatColour: {r: 0.6084906, g: 0.8757379, b: 1, a: 1}
-    - WatFogColour: {r: 0.17924526, g: 0.17924526, b: 0.17924526, a: 1}
+    - WatColour: {r: 0.6462264, g: 0.8002891, b: 1, a: 0.09803922}
+    - WatFogColour: {r: 0.2707369, g: 0.32650152, b: 0.33962262, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

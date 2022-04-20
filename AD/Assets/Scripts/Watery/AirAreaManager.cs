@@ -11,9 +11,11 @@ public class AirAreaManager : MonoBehaviour
     { get; private set; }
     private float SingleUnit = 3;
     public float WaterLevelY = 0; //the predicted y level
-    public float AirAreaYBounds
+    public Vector3 AirAreaBounds
     { get; private set; }
     public BoxCollider col;
+    public float WatLevelCore
+    { get; private set; }
 
     private void Start()
     {
@@ -32,14 +34,15 @@ public class AirAreaManager : MonoBehaviour
     private void OnDrawGizmosSelected() //water level preview for the unity editor alone, not used in normal gameplay i guess
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube((AirNodeObj.transform.position + new Vector3(0,WaterLevelY,0)), new Vector3(AirNodeObj.transform.localScale.x * 2, 0, AirNodeObj.transform.localScale.z * 2));
+        Gizmos.DrawWireCube((AirNodeObj.transform.position + new Vector3(0,WaterLevelY,0)), new Vector3(AirAreaBounds.x, 0, AirAreaBounds.z));
+        Gizmos.DrawWireCube((AirNodeObj.transform.position), AirAreaBounds);
     }
 
     private void Update()
     {
         var rend = AirNodeObj.GetComponent<MeshRenderer>();
-        float WatLevel = Mathf.Clamp(((1 / WaterVolumeMax) * WaterVolume), 0, 1); //set the water level rendering stuff to a devision of the volume max accordingly, 1 is always max.
-        rend.material.SetFloat("WatLevel", WatLevel);
+        WatLevelCore = Mathf.Clamp(((1 / WaterVolumeMax) * WaterVolume), 0, 1); //set the water level rendering stuff to a devision of the volume max accordingly, 1 is always max.
+        rend.material.SetFloat("WatLevel", WatLevelCore);
 
         WaterVolumeMax =( //total max water volume- caps at this.
             (AirNodeObj.transform.localScale.x * SingleUnit) *
@@ -51,12 +54,26 @@ public class AirAreaManager : MonoBehaviour
         WaterVolume = Mathf.Clamp(WaterVolume, 0, WaterVolumeMax); //water deletes past a certain range, sorry. :)
 
         //Debug.Log(WaterVolume + "Water Volume... Water MAX :" + WaterVolumeMax);
-        Vector3 WaterPredictLev = new Vector3(
+        Vector3 WaterPredictLevY = new Vector3(
             (Mathf.Abs(AirNodeObj.transform.forward.y) * AirNodeObj.transform.localScale.z),
             (Mathf.Abs(AirNodeObj.transform.up.y) * AirNodeObj.transform.localScale.y),
             (Mathf.Abs(AirNodeObj.transform.right.y) * AirNodeObj.transform.localScale.x)
             );
-        float AirAreaYBounds = (((WaterPredictLev.x + WaterPredictLev.y + WaterPredictLev.z) * 1)); //water level y pos prediction stuff
-        WaterLevelY = (((WatLevel * 2) - 1) * AirAreaYBounds); //calculate the water level in y 
+        Vector3 WaterPredictLevX = new Vector3(
+            (Mathf.Abs(AirNodeObj.transform.forward.x) * AirNodeObj.transform.localScale.z),
+            (Mathf.Abs(AirNodeObj.transform.up.x) * AirNodeObj.transform.localScale.y),
+            (Mathf.Abs(AirNodeObj.transform.right.x) * AirNodeObj.transform.localScale.x)
+            );
+        Vector3 WaterPredictLevZ = new Vector3(
+            (Mathf.Abs(AirNodeObj.transform.forward.z) * AirNodeObj.transform.localScale.z),
+            (Mathf.Abs(AirNodeObj.transform.up.z) * AirNodeObj.transform.localScale.y),
+            (Mathf.Abs(AirNodeObj.transform.right.z) * AirNodeObj.transform.localScale.x)
+            );
+        AirAreaBounds = new Vector3( //water area pos prediction stuff
+            ((WaterPredictLevX.x + WaterPredictLevX.y + WaterPredictLevX.z) * 2),
+            ((WaterPredictLevY.x + WaterPredictLevY.y + WaterPredictLevY.z) * 2),
+            ((WaterPredictLevZ.x + WaterPredictLevZ.y + WaterPredictLevZ.z) * 2)
+        );
+        WaterLevelY = (((WatLevelCore * 2) - 1) * (AirAreaBounds.y * 0.5f)); //calculate the water level in y 
     }
 }
