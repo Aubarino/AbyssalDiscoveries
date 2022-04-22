@@ -31,7 +31,6 @@ public class WaterSurfaceManager : MonoBehaviour
         SyncManagers();
         WaterSurfaceObj.transform.rotation = RotationFix;
         WaterSurfaceObj.transform.position = (AirNodeObj.transform.position + new Vector3(0,AirNodeObjAirManager.WaterLevelY,0));
-        float scaleexta = 0.3f;
         WaterSurfaceObj.transform.localScale = new Vector3(
         (AirNodeObjAirManager.AirAreaBounds.x * 0.5f),
         1,

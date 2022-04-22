@@ -107,7 +107,7 @@ Material:
     m_Floats:
     - Vector1_f3277ab5f0c74616809d8568edc93de2: 0.69
     - WatFog: 3
-    - WatLevel: 0.5
+    - WatLevel: 0.26
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
