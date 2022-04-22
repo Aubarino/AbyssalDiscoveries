@@ -32,8 +32,8 @@ public class LocalController : MonoBehaviour
         underwaterVol.weight = 0f;
         distortionPlane = transform.GetChild(2).gameObject;
         distortionPlane.SetActive(false);
-        healthbar = transform.GetChild(3).GetChild(0).GetComponent<Image>();
-        affHolder = transform.GetChild(3).GetChild(1).GetComponent<RectTransform>();
+        healthbar = transform.GetChild(3).GetChild(1).GetComponent<Image>();
+        affHolder = transform.GetChild(3).GetChild(2).GetComponent<RectTransform>();
     }
     public void Damaged()
     {
