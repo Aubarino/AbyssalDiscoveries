@@ -42,7 +42,7 @@ public static class AfflictionDatabase
             100f,
             Color.white,
             Color.red,
-            Resources.Load<Sprite>("Afflictions/barotrauma")
+            Resources.Load<Sprite>("Afflictions/barotrauma2")
             ));
         Afflictions.Add(new AfflictionPrefab( //Add the new affliction using this
             "Hypoxemia", //The ingame affliction name
@@ -56,7 +56,7 @@ public static class AfflictionDatabase
             100f, //the max affliction strength
             Color.cyan, //the beginning affliction color in the ui (at 0 strength)
             Color.red, //the ending affliction color in the ui (at max strength)
-            Resources.Load<Sprite>("Afflictions/oxygen"), //the ingame affliction icon
+            Resources.Load<Sprite>("Afflictions/lowoxygen"), //the ingame affliction icon
             new AffTrigger("neurotrauma", 1f, 3.4f, 70f) //the affliction trigger. first is the wanted affliction identifier, second is the chance per second, third is the strength of the given affliction, fourth is the min current afflictions strength
             ));
         Debug.Log(Afflictions[0].name);
