@@ -23,6 +23,7 @@ public class LocalController : MonoBehaviour
     GameObject distortionPlane;
     public Image healthbar;
     public RectTransform affHolder;
+    float timeSinceLeftWater;
     private void Start()
     {
         currentBody.OnJump.AddListener(CharacterJumped); //listeners for jumping and landing, for camera bob
@@ -59,7 +60,7 @@ public class LocalController : MonoBehaviour
             if (aff.strength >= aff.prefab.visibilityTreshold)
             {
                 GameObject g = new GameObject("AfflictionImage", typeof(CanvasRenderer), typeof(Image));
-                g.GetComponent<RectTransform>().parent = affHolder;
+                g.GetComponent<RectTransform>().SetParent(affHolder);
                 g.GetComponent<RectTransform>().anchoredPosition = Vector2.zero + Vector2.left * i * 50f;
                 Image img = g.GetComponent<Image>();
                 img.sprite = aff.prefab.icon;
@@ -85,6 +86,7 @@ public class LocalController : MonoBehaviour
     }
     private void Update()
     {
+        timeSinceLeftWater -= Time.deltaTime;
         if (currentBody.grounded)
             bobTime += Time.deltaTime * bobSpeed * currentBody.GetRelativeSpeed(); //if grounded, we add to the bobtime
         else
@@ -106,7 +108,12 @@ public class LocalController : MonoBehaviour
                 cameraRot -= curPos.y * lookSensitivity * Time.deltaTime; //if not in water, do the usual look around
                 if (cameraRot > 90) cameraRot = 90;
                 if (cameraRot < -90) cameraRot = -90;
-                transform.eulerAngles = new Vector3(cameraRot, currentBody.transform.eulerAngles.y,Mathf.LerpAngle(transform.eulerAngles.z, currentBody.transform.eulerAngles.z, 5f * Time.deltaTime));
+                if (timeSinceLeftWater < 0f)
+                    transform.eulerAngles = new Vector3(cameraRot, currentBody.transform.eulerAngles.y, Mathf.LerpAngle(transform.eulerAngles.z, currentBody.transform.eulerAngles.z, 5f * Time.deltaTime));
+                else
+                {
+                    transform.eulerAngles = new Vector3(Mathf.LerpAngle(transform.eulerAngles.x, cameraRot, 8f * Time.deltaTime), currentBody.transform.eulerAngles.y, Mathf.LerpAngle(transform.eulerAngles.z, currentBody.transform.eulerAngles.z, 5f * Time.deltaTime));
+                }
             }
             else
             {
@@ -115,6 +122,7 @@ public class LocalController : MonoBehaviour
         }
         else
         {
+            timeSinceLeftWater = 1.5f;
             transform.rotation = Quaternion.Lerp(transform.rotation, currentBody.transform.rotation, 5f * Time.deltaTime); //if in water, match our camera position with the body
             if (Input.GetKey(KeyCode.Space))
             {
@@ -125,10 +133,15 @@ public class LocalController : MonoBehaviour
                 currentBody.moveVector.y = -1f;
             }
             else { currentBody.moveVector.y = 0f; }
-            //cameraRot = currentBody.transform.localEulerAngles.x;
+            //cameraRot = currentBody.transform.eulerAngles.x;
+            if (currentBody.HasAffliction("barotrauma", 0f))
+            {
+                Camera.main.fieldOfView = Random.Range(40, 50f);
+            }
 
         }
-        if(currentBody.faceInWater)
+        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 90f, Time.deltaTime * 8f);
+        if (currentBody.faceInWater)
         {
             underwaterVol.weight = Mathf.Lerp(underwaterVol.weight, 1f, Time.deltaTime * 10f);
             distortionPlane.SetActive(true);

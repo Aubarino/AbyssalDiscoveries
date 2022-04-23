@@ -147,7 +147,7 @@ public class BodyScript : MonoBehaviour
     }
     public void ExitWater() //called when we exit the water
     {
-        if (!isRagdoll)
+        if (!isRagdoll && !dead)
             rb.freezeRotation = true;
         inWater = false;
         //rb.useGravity = false;
@@ -199,6 +199,7 @@ public class BodyScript : MonoBehaviour
         {
             if (air.col.bounds.Contains(transform.position))
             {
+                if(air.WatLevelCore < 1f)
                 indeepwater = false;
                 if (transform.position.y > air.WaterLevelY + air.transform.position.y)
                 {
@@ -229,15 +230,8 @@ public class BodyScript : MonoBehaviour
             afflictionCooldown = 1f;
             foreach(Affliction aff in GetAllAfflictions())
             {
-                if(aff.prefab.afftrig != null)
-                {
-                    print(aff.strength >= aff.prefab.afftrig.minStrength);
-                    print(aff.strength);
-                    print(aff.prefab.afftrig.minStrength);
-                }
                 if(aff.prefab.afftrig != null && aff.strength >= aff.prefab.afftrig.minStrength && aff.prefab.afftrig.chance > Random.Range(0f,1f))
                 {
-                    print("triggering");
                     GiveAffliction(aff.prefab.afftrig.affliction, aff.prefab.afftrig.strength);
                 }
             }
@@ -309,17 +303,20 @@ public class BodyScript : MonoBehaviour
     }
     public void GiveAffliction(string identifier, float strength)
     {
-        if (!HasAfflictionLimb(identifier, limbs[0].identifier, 0f))
+        if(!dead)
         {
-            limbs[0].afflictions.Add(new Affliction(strength, AfflictionDatabase.GetAffliction(identifier)));
-        }
-        else
-        {
-            foreach (Affliction aff in limbs[0].afflictions)
+            if (!HasAfflictionLimb(identifier, limbs[0].identifier, 0f))
             {
-                if (aff.prefab.identifier == identifier) aff.strength += strength;
-                if (aff.strength > aff.prefab.maxStrength) aff.strength = aff.prefab.maxStrength;
-                if (aff.strength <= 0f) { limbs[0].afflictions.Remove(aff); break; }
+                limbs[0].afflictions.Add(new Affliction(strength, AfflictionDatabase.GetAffliction(identifier)));
+            }
+            else
+            {
+                foreach (Affliction aff in limbs[0].afflictions)
+                {
+                    if (aff.prefab.identifier == identifier) aff.strength += strength;
+                    if (aff.strength > aff.prefab.maxStrength) aff.strength = aff.prefab.maxStrength;
+                    if (aff.strength <= 0f) { limbs[0].afflictions.Remove(aff); break; }
+                }
             }
         }
         Damaged();
