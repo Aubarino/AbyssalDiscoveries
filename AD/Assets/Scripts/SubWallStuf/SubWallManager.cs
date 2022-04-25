@@ -91,7 +91,7 @@ public class SubWallManager : MonoBehaviour
                 TileGrid[TX,TY] = new SubWallTile();
                 SubWallTile Tile = TileGrid[TX, TY];
                 
-                if (UnityEngine.Random.value > 0.5f) {
+                if (UnityEngine.Random.value > 0.9f) {
                     int rng = UnityEngine.Random.Range(0, 3);
                     Tile.Mesh = Resources.Load<Mesh>("Models/tiles/surfacehole" + rng + "_single");
                     Tile.PrefabBase = "Fabs/surfacehole" + rng + "_single";
