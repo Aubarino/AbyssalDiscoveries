@@ -50,6 +50,8 @@
      <Compile Include="Assets\Scripts\BodyScript.cs" />
      <Compile Include="Assets\Scripts\Watery\WaterSurfaceManager.cs" />
      <Compile Include="Assets\Scripts\Databases\DBManager.cs" />
+     <Compile Include="Assets\Scripts\SubWallStuf\SubWallManager.cs" />
+     <Compile Include="Assets\Scripts\SubWallStuf\SubWallTile.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\Databases\Item.cs" />
      <Compile Include="Assets\Scripts\CScompiling\RuntimeCompiler.cs" />
@@ -59,6 +61,7 @@
      <Compile Include="Assets\Scripts\CScompiling\TestScript.cs" />
      <Compile Include="Assets\Scripts\Databases\AfflictionDatabase.cs" />
      <Compile Include="Assets\Scripts\Databases\ItemDatabase.cs" />
+     <Compile Include="Assets\Scripts\MusicManager.cs" />
      <None Include="Assets\Resources\Shaders\WaterStencil.shader" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
