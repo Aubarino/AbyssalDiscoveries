@@ -181,12 +181,17 @@ public class BodyScript : MonoBehaviour
         }
         else if (!isRagdoll)
         {
+            if(!inWater)
             rb.AddRelativeForce(moveVector * baseMoveSpeed); //if we arent, move according to the movevector
+            else { rb.AddRelativeForce(moveVector * baseMoveSpeed * 0.5f);}
         }
         if (inWater && !isRagdoll)
         {
             rb.AddRelativeTorque(Vector3.forward * -sideVector * baseMoveSpeed * 0.08f); //if in water, do the water movement
-            //rb.AddForce(phy)
+            if(grounded)
+            {
+                //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f); AHHHH LORD HELP ME WITH THIS GOD FORSAKEN PIECE OF SHIT ASS ROTATION SYSTEM
+            }
         }
 
         if (moveVector.x == 0) DoSlowdown(false);

@@ -56,9 +56,12 @@ MonoBehaviour:
   rbMass: 8
   walkableLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65536
   desiredCameraPosition: {x: 0, y: 0.8, z: 0.3}
   CreatureName: 
+  dead: 0
+  isRagdoll: 0
+  stunTime: 0
   inWater: 0
   faceInWater: 0
   OnJump:
@@ -67,6 +70,10 @@ MonoBehaviour:
   OnLand:
     m_PersistentCalls:
       m_Calls: []
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
   grounded: 0
   moveVector: {x: 0, y: 0, z: 0}
   sideVector: 0
+  nodes: []

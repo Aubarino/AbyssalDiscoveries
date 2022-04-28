@@ -63,7 +63,7 @@ public class MusicManager : MonoBehaviour
             {
                 overallFillAmount += area.WatLevelCore;
                 if (area.WaterVolume - prevAirWaterAmount[i] > 20f) isFlooding = true;
-                print(area.WaterVolume - prevAirWaterAmount[i]);
+                //print(area.WaterVolume - prevAirWaterAmount[i]);
                 prevAirWaterAmount[i] = area.WaterVolume;
                 i++;
             }

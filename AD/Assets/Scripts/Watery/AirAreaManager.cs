@@ -50,7 +50,7 @@ public class AirAreaManager : MonoBehaviour
             (AirNodeObj.transform.localScale.z * SingleUnit)
         );
 
-        WaterVolume ++;
+        //WaterVolume ++;
         WaterVolume = Mathf.Clamp(WaterVolume, 0, WaterVolumeMax); //water deletes past a certain range, sorry. :)
 
         //Debug.Log(WaterVolume + "Water Volume... Water MAX :" + WaterVolumeMax);
