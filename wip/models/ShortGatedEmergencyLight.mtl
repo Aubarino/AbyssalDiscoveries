@@ -1,7 +1,7 @@
 # Blender MTL File: 'EmergencyLights.blend'
-# Material Count: 2
+# Material Count: 1
 
-newmtl Material.001
+newmtl Material
 Ns 225.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -10,17 +10,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump Metal036_2K-PNG\\Metal036_2K_NormalGL.png
-map_Kd C:\\Users\\pjsta\\Downloads\\Metal036_2K-PNG\\Metal036_2K_Color.png
-map_Ns Metal036_2K-PNG\\Metal036_2K_Roughness.png
-refl Metal036_2K-PNG\\Metal036_2K_NormalGL.png
-
-newmtl Material.002
-Ns 138.694412
-Ka 1.000000 1.000000 1.000000
-Kd 1.000000 0.000000 0.003824
-Ks 0.107438 0.107438 0.107438
-Ke 9.699999 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
+map_Kd C:\\AbyssalDiscoveries\\wip\\textures\\uv\\EmergencyLightTexture.png

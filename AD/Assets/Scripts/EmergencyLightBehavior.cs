@@ -6,15 +6,16 @@ public class EmergencyLightBehavior : MonoBehaviour
 {
     public bool On;
     public Reactor ConnectedReactor; //put the reactor script here in the inspector
-    public Light light;
+    public Light elight;
     void Update() {
+        elight.intensity = ConnectedReactor.PowerOutput / 6.5f;
         if (On) {
-            light.enabled = true;
+            elight.enabled = true;
         } else {
-            light.enabled = false;
+            elight.enabled = false;
         }
 
-        if (ConnectedReactor.isOnFire == true || ConnectedReactor.Overload == true) {
+        if (ConnectedReactor.ReactorElectronics.isOnFire == true || ConnectedReactor.Overload == true || ConnectedReactor.Fuel > 1) {
             On = true;
         }
     }
