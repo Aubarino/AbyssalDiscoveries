@@ -38,8 +38,9 @@ public class Electronics : MonoBehaviour
 
     void OnCollisionEnter(Collision col) //or OnTriggerEnter, depends on what you do
     {
-        if (col.gameObject.tag == "FireExtinguisherPuff")
-        { //rename this when you get to the point where you add a fire extinguisher
+        if (col.gameObject.tag == "FireExtinguisherPuff") { //rename this when you get to the point where you add a fire extinguisher
+            isOnFire = false;
+        } else if (col.gameObject.tag == "Water") {
             isOnFire = false;
         }
     }
